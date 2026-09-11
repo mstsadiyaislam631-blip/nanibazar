@@ -2075,6 +2075,143 @@ loadOrders();
 },3000);
 
 </script>
+<!-- ACCOUNT MENU -->
+<div style="text-align:center;margin:20px 0;">
+<button onclick="openAccount()" style="
+padding:12px 25px;
+border:0;
+border-radius:12px;
+background:linear-gradient(90deg,#2563eb,#7c3aed);
+color:#fff;
+font-weight:bold;
+font-size:15px;
+cursor:pointer;">
+👤 My Account
+</button>
+</div>
+
+<!-- ACCOUNT BOX -->
+<div id="accountBox" style="
+display:none;
+max-width:500px;
+margin:20px auto;
+padding:22px;
+border-radius:20px;
+background:#0d1430;
+border:1px solid #303b70;
+text-align:center;">
+
+<h2 style="margin-bottom:15px;">👤 My Account</h2>
+
+<input id="accountName"
+type="text"
+placeholder="আপনার নাম"
+style="margin-bottom:10px;">
+
+<input id="accountPhone"
+type="tel"
+placeholder="মোবাইল নম্বর"
+style="margin-bottom:10px;">
+
+<button onclick="saveAccount()" style="
+width:100%;
+padding:13px;
+border:0;
+border-radius:11px;
+background:#059669;
+color:#fff;
+font-weight:bold;">
+💾 Save Account
+</button>
+
+<button onclick="closeAccount()" style="
+width:100%;
+margin-top:10px;
+padding:11px;
+border:1px solid #39456f;
+border-radius:11px;
+background:#111832;
+color:#fff;">
+← Back
+</button>
+
+<div id="accountMessage"
+style="margin-top:12px;color:#34d399;">
+</div>
+
+</div>
+
+<script>
+function openAccount(){
+
+document.getElementById("accountBox").style.display="block";
+
+const account =
+JSON.parse(localStorage.getItem("naniAccount") || "null");
+
+if(account){
+
+document.getElementById("accountName").value =
+account.name || "";
+
+document.getElementById("accountPhone").value =
+account.phone || "";
+
+}
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+}
+
+function saveAccount(){
+
+const name =
+document.getElementById("accountName").value.trim();
+
+const phone =
+document.getElementById("accountPhone").value.trim();
+
+if(!name){
+
+alert("আপনার নাম লিখুন।");
+return;
+
+}
+
+if(!phone){
+
+alert("মোবাইল নম্বর লিখুন।");
+return;
+
+}
+
+localStorage.setItem(
+"naniAccount",
+JSON.stringify({
+name:name,
+phone:phone
+})
+);
+
+document.getElementById("accountMessage").innerText =
+"✅ Account তথ্য সংরক্ষণ হয়েছে!";
+
+}
+
+function closeAccount(){
+
+document.getElementById("accountBox").style.display="none";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+</script>
 
 </body>
 </html>
