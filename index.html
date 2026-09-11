@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>NaniBazar.com - Free Fire Top Up</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif
+}
+
+body{
+    background:
+    radial-gradient(circle at 15% 10%,#32106b 0%,transparent 35%),
+    radial-gradient(circle at 85% 90%,#092d68 0%,transparent 35%),
+    linear-gradient(135deg,#050816,#0b1028,#111642);
+    color:#fff;
+    min-height:100vh
+}
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.07;
+    background-image:
+    linear-gradient(#fff 1px,transparent 1px),
+    linear-gradient(90deg,#fff 1px,transparent 1px);
+    background-size:35px 35px
+}
+
+.container{
+    width:94%;
+    max-width:1100px;
+    margin:auto;
+    padding-bottom:50px
+}
+
+header{
+    text-align:center;
+    padding:28px 10px 18px
+}
+
+.logo{
+    font-size:30px;
+    font-weight:900;
+    background:linear-gradient(90deg,#00eaff,#8b5cf6,#ff4fd8);
+    -webkit-background-clip:text;
+    color:transparent
+}
+
+.subtitle{
+    margin-top:7px;
+    color:#bfc7e8;
+    font-size:14px
+}
+
+.badge{
+    display:inline-block;
+    margin-top:12px;
+    padding:8px 15px;
+    border-radius:30px;
+    background:rgba(0,234,255,.12);
+    border:1px solid rgba(0,234,255,.35);
+    color:#00eaff;
+    font-size:13px;
+    font-weight:bold
+}
+
+.menu{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding:5px 0 15px;
+    scrollbar-width:none
+}
+
+.menu::-webkit-scrollbar{
+    display:none
+}
+
+.menu button{
+    flex:1;
+    min-width:105px;
+    padding:12px 9px;
+    border:1px solid #29325e;
+    border-radius:14px;
+    background:#111832;
+    color:#dfe5ff;
+    font-weight:bold;
+    cursor:pointer
+}
+
+.menu button.active{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    border-color:#7c3aed;
+    color:#fff;
+    box-shadow:0 0 18px rgba(124,58,237,.35)
+}
+
+.section{
+    display:none
+}
+
+.section.active{
+    display:block
+}
+
+.section-title{
+    text-align:center;
+    margin:12px 0 18px;
+    font-size:22px
+}
+
+.section-title span{
+    color:#00eaff
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px
+}
+
+.package{
+    position:relative;
+    overflow:hidden;
+    min-height:205px;
+    padding:12px;
+    border-radius:20px;
+    border:1px solid rgba(115,130,210,.28);
+    background:linear-gradient(145deg,rgba(29,38,79,.96),rgba(10,15,38,.98));
+    box-shadow:0 10px 28px rgba(0,0,0,.35);
+    transition:.25s
+}
+
+.package:hover{
+    transform:translateY(-5px);
+    border-color:#00eaff;
+    box-shadow:0 0 25px rgba(0,234,255,.2)
+}
+
+.package:before{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    right:-35px;
+    top:-35px;
+    background:#6d28d9;
+    filter:blur(35px);
+    opacity:.35
+}
+
+.character{
+    height:78px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:54px;
+    position:relative;
+    z-index:1
+}
+
+.package-name{
+    text-align:center;
+    font-size:15px;
+    font-weight:bold;
+    min-height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center
+}
+
+.price{
+    text-align:center;
+    margin:5px 0 10px;
+    font-size:19px;
+    color:#ffd84d;
+    font-weight:900
+}
+
+.select-btn{
+    width:100%;
+    border:0;
+    border-radius:11px;
+    padding:10px 5px;
+    background:linear-gradient(90deg,#06b6d4,#2563eb);
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer
+}
+
+/* PAYMENT */
+
+#paymentPage,
+#adminPage{
+    display:none
+}
+
+.payment-box,
+.admin-box{
+    max-width:950px;
+    margin:15px auto;
+    padding:22px;
+    border-radius:22px;
+    background:rgba(13,20,49,.96);
+    border:1px solid #303b70;
+    box-shadow:0 15px 40px rgba(0,0,0,.4)
+}
+
+.payment-title,
+.admin-title{
+    text-align:center;
+    font-size:24px;
+    margin-bottom:18px
+}
+
+.selected-package{
+    padding:14px;
+    border-radius:14px;
+    background:#151d3b;
+    border:1px solid #313d70;
+    margin-bottom:18px;
+    text-align:center
+}
+
+.selected-package strong{
+    color:#00eaff
+}
+
+.methods{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    margin-bottom:18px
+}
+
+.method{
+    padding:11px 4px;
+    border-radius:11px;
+    border:1px solid #303b68;
+    background:#0c1330;
+    color:#fff;
+    cursor:pointer;
+    font-weight:bold
+}
+
+.method.active{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    border-color:#8b5cf6
+}
+
+.payment-number{
+    display:none;
+    padding:13px;
+    border-radius:12px;
+    background:#0b1230;
+    border:1px solid #2d3b70;
+    margin-bottom:15px;
+    text-align:center
+}
+
+.number{
+    color:#ffd84d;
+    font-size:20px;
+    font-weight:bold
+}
+
+.copy-btn{
+    margin-top:9px;
+    padding:8px 15px;
+    border:0;
+    border-radius:8px;
+    background:#334155;
+    color:#fff;
+    cursor:pointer
+}
+
+.instruction{
+    font-size:13px;
+    line-height:1.7;
+    color:#c7cdeb;
+    margin-bottom:15px
+}
+
+label{
+    display:block;
+    margin:12px 0 6px;
+    color:#dce2ff;
+    font-size:14px
+}
+
+input,
+select{
+    width:100%;
+    padding:13px;
+    border-radius:11px;
+    border:1px solid #303b68;
+    outline:none;
+    background:#090f29;
+    color:#fff;
+    font-size:15px
+}
+
+input:focus,
+select:focus{
+    border-color:#00eaff
+}
+
+.buy-btn{
+    width:100%;
+    margin-top:18px;
+    padding:14px;
+    border:0;
+    border-radius:13px;
+    background:linear-gradient(90deg,#00b4d8,#2563eb,#7c3aed);
+    color:#fff;
+    font-size:16px;
+    font-weight:900;
+    cursor:pointer
+}
+
+.back-btn{
+    width:100%;
+    margin-top:10px;
+    padding:11px;
+    border:1px solid #39456f;
+    border-radius:11px;
+    background:#111832;
+    color:#fff;
+    cursor:pointer
+}
+
+.info-box{
+    margin-top:28px;
+    padding:20px;
+    border-radius:20px;
+    background:rgba(11,17,42,.88);
+    border:1px solid #29345e
+}
+
+.info-box h3{
+    margin-bottom:13px;
+    color:#00eaff
+}
+
+.info-box p{
+    color:#cbd2ed;
+    line-height:1.8;
+    font-size:14px;
+    margin:5px 0
+}
+
+.success{
+    display:none;
+    text-align:center;
+    padding:20px;
+    border-radius:16px;
+    background:rgba(16,185,129,.1);
+    border:1px solid #10b981;
+    margin-top:15px
+}
+
+.success h3{
+    color:#34d399;
+    margin-bottom:10px
+}
+
+.order-id{
+    color:#ffd84d;
+    font-weight:bold
+}
+
+/* ADMIN */
+
+.admin-top{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:18px
+}
+
+.stat{
+    padding:17px;
+    border-radius:16px;
+    background:#111832;
+    border:1px solid #303b68;
+    text-align:center
+}
+
+.stat small{
+    display:block;
+    color:#aeb7d8;
+    margin-bottom:7px
+}
+
+.stat strong{
+    font-size:23px;
+    color:#00eaff
+}
+
+.admin-actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:18px
+}
+
+.admin-btn{
+    padding:11px 15px;
+    border:0;
+    border-radius:10px;
+    background:#2563eb;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer
+}
+
+.admin-btn.red{
+    background:#dc2626
+}
+
+.admin-btn.green{
+    background:#059669
+}
+
+.admin-btn.gold{
+    background:#d97706
+}
+
+.search{
+    margin-bottom:15px
+}
+
+.admin-tools{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:18px
+}
+
+.tool-box{
+    padding:14px;
+    border-radius:15px;
+    background:#111832;
+    border:1px solid #303b68
+}
+
+.tool-box h4{
+    margin-bottom:9px;
+    color:#00eaff
+}
+
+.order-card{
+    padding:16px;
+    border-radius:16px;
+    background:#0d1430;
+    border:1px solid #303b68;
+    margin-bottom:12px
+}
+
+.order-head{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:10px
+}
+
+.order-head strong{
+    color:#ffd84d
+}
+
+.order-row{
+    font-size:14px;
+    color:#cbd2ed;
+    line-height:1.8
+}
+
+.order-row strong{
+    color:#fff
+}
+
+.status{
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold
+}
+
+.pending{
+    background:#78350f;
+    color:#fbbf24
+}
+
+.completed{
+    background:#064e3b;
+    color:#34d399
+}
+
+.cancelled{
+    background:#7f1d1d;
+    color:#fca5a5
+}
+
+.order-actions{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin-top:12px
+}
+
+.order-actions button{
+    padding:8px 11px;
+    border:0;
+    border-radius:8px;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer
+}
+
+.complete{
+    background:#059669
+}
+
+.cancel{
+    background:#dc2626
+}
+
+.delete{
+    background:#475569
+}
+
+.copy{
+    background:#2563eb
+}
+
+.empty{
+    text-align:center;
+    padding:30px;
+    color:#9ca8cf
+}
+
+.admin-link{
+    text-align:center;
+    margin-top:25px
+}
+
+.admin-link button{
+    border:1px solid #303b68;
+    background:#111832;
+    color:#9da8d0;
+    padding:9px 14px;
+    border-radius:9px;
+    cursor:pointer;
+    font-size:12px
+}
+
+.notice{
+    display:none;
+    margin-bottom:15px;
+    padding:13px;
+    border-radius:12px;
+    background:rgba(245,158,11,.12);
+    border:1px solid #f59e0b;
+    color:#fbbf24;
+    font-weight:bold;
+    text-align:center
+}
+
+.wallet-balance{
+    font-size:25px;
+    color:#34d399;
+    font-weight:900;
+    margin:5px 0 12px
+}
+
+.cancel-reason{
+    margin-top:10px;
+    padding:10px;
+    border-radius:10px;
+    background:#35151b;
+    color:#fca5a5;
+    font-size:13px
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+    .grid{
+        grid-template-columns:repeat(3,1fr)
+    }
+}
+
+@media(max-width:600px){
+    .container{
+        width:92%
+    }
+
+    .logo{
+        font-size:26px
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:11px
+    }
+
+    .package{
+        min-height:195px;
+        padding:10px
+    }
+
+    .character{
+        height:70px;
+        font-size:48px
+    }
+
+    .package-name{
+        font-size:13px
+    }
+
+    .price{
+        font-size:17px
+    }
+
+    .methods{
+        grid-template-columns:repeat(2,1fr)
+    }
+
+    .payment-box,
+    .admin-box{
+        padding:16px
+    }
+
+    .admin-top{
+        grid-template-columns:repeat(2,1fr)
+    }
+
+    .admin-tools{
+        grid-template-columns:1fr
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+<div class="logo">💎 NaniBazar.com</div>
+<div class="subtitle">Fast • Secure • Reliable Free Fire Top Up</div>
+<div class="badge">⚡ 2 Seconds Top-Up</div>
+</header>
+
+<!-- HOME -->
+
+<div id="homePage">
+
+<div class="menu">
+
+<button class="active" onclick="showCategory('diamond',this)">
+💎 Diamond
+</button>
+
+<button onclick="showCategory('weekly',this)">
+⚡ Weekly
+</button>
+
+<button onclick="showCategory('monthly',this)">
+👑 Monthly
+</button>
+
+<button onclick="showCategory('levelup',this)">
+🚀 Level Up
+</button>
+
+<button onclick="showCategory('mistry',this)">
+🎁 Mistry Box
+</button>
+
+</div>
+
+<section id="diamond" class="section active">
+<div class="section-title">
+💎 <span>Diamond Packages</span>
+</div>
+<div class="grid" id="diamondGrid"></div>
+</section>
+
+<section id="weekly" class="section">
+<div class="section-title">
+⚡ <span>Weekly Membership</span>
+</div>
+<div class="grid" id="weeklyGrid"></div>
+</section>
+
+<section id="monthly" class="section">
+<div class="section-title">
+👑 <span>Monthly Membership</span>
+</div>
+<div class="grid" id="monthlyGrid"></div>
+</section>
+
+<section id="levelup" class="section">
+<div class="section-title">
+🚀 <span>Level Up Pass</span>
+</div>
+<div class="grid" id="levelupGrid"></div>
+</section>
+
+<section id="mistry" class="section">
+<div class="section-title">
+🎁 <span>Mistry Box</span>
+</div>
+<div class="grid" id="mistryGrid"></div>
+</section>
+
+<div class="info-box">
+
+<h3>🛒 How To Order</h3>
+
+<p>1️⃣ Select Recharge</p>
+<p>2️⃣ Enter Free Fire UID</p>
+<p>3️⃣ Select Payment Method</p>
+<p>4️⃣ Payment + Transaction ID</p>
+
+</div>
+
+<div class="info-box">
+
+<h3>📌 Rules & Conditions</h3>
+
+<p>🇧🇩 Only Bangladesh server IDs are accepted.</p>
+<p>⚠️ Wrong UID দিলে NaniBazar দায়ী থাকবে না।</p>
+<p>📩 Recharge না এলে Support-এর সাথে যোগাযোগ করুন।</p>
+<p>🔐 কখনোই Free Fire password শেয়ার করবেন না।</p>
+<p>❌ ভুল তথ্যের কারণে Order Cancel হলে Order Status-এ কারণ দেখানো হবে।</p>
+
+</div>
+
+<div class="admin-link">
+<button onclick="openAdminLogin()">🔐 Admin Panel</button>
+</div>
+
+</div>
+
+
+<!-- PAYMENT -->
+
+<div id="paymentPage">
+
+<div class="payment-box">
+
+<div class="payment-title">
+💳 Complete Your Order
+</div>
+
+<div class="selected-package">
+
+<div id="selectedIcon" style="font-size:35px">
+💎
+</div>
+
+<strong id="selectedProduct">
+Package
+</strong>
+
+<div style="margin-top:6px">
+Amount:
+<strong id="selectedPrice">৳0</strong>
+</div>
+
+</div>
+
+<div class="methods">
+
+<button class="method active" onclick="selectMethod('Wallet',this)">
+💰 Wallet
+</button>
+
+<button class="method" onclick="selectMethod('bKash',this)">
+bKash
+</button>
+
+<button class="method" onclick="selectMethod('Nagad',this)">
+Nagad
+</button>
+
+<button class="method" onclick="selectMethod('Rocket',this)">
+Rocket
+</button>
+
+</div>
+
+<div id="paymentNumber" class="payment-number">
+
+<div>Payment Number</div>
+
+<div class="number" id="numberText">
+-
+</div>
+
+<button class="copy-btn" onclick="copyNumber()">
+📋 Copy Number
+</button>
+
+</div>
+
+<div id="instruction" class="instruction">
+Wallet selected. Your wallet balance will be used for this order.
+</div>
+
+<label>🎮 Free Fire UID</label>
+
+<input
+id="uid"
+type="number"
+placeholder="Enter your Free Fire UID"
+>
+
+<div id="trxArea">
+
+<label>🧾 Transaction ID</label>
+
+<input
+id="trx"
+type="text"
+placeholder="Enter Transaction ID"
+>
+
+</div>
+
+<button class="buy-btn" onclick="verifyPayment()">
+BUY NOW / VERIFY
+</button>
+
+<button class="back-btn" onclick="goHome()">
+← Back To Packages
+</button>
+
+<div id="successBox" class="success">
+
+<h3>Request Submitted Successfully!</h3>
+
+<p>Your payment request has been submitted successfully.</p>
+
+<p style="margin-top:8px">
+Order ID:
+<span class="order-id" id="orderId"></span>
+</p>
+
+<p>
+Status: <strong>Pending</strong>
+</p>
+
+<p style="margin-top:8px">
+Our admin will verify your payment and process your recharge shortly.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<div id="adminPage">
+
+<div class="admin-box">
+
+<div class="admin-title">
+👑 NaniBazar Admin Panel
+</div>
+
+<div id="newOrderNotice" class="notice">
+🔔 New Order Received!
+</div>
+
+<div class="admin-top">
+
+<div class="stat">
+<small>Total Orders</small>
+<strong id="totalOrders">0</strong>
+</div>
+
+<div class="stat">
+<small>Pending</small>
+<strong id="pendingOrders">0</strong>
+</div>
+
+<div class="stat">
+<small>Completed</small>
+<strong id="completedOrders">0</strong>
+</div>
+
+<div class="stat">
+<small>Total Sales</small>
+<strong id="totalSales">৳0</strong>
+</div>
+
+</div>
+
+<div class="admin-tools">
+
+<div class="tool-box">
+
+<h4>💰 Wallet Management</h4>
+
+<div>Current Balance</div>
+
+<div class="wallet-balance" id="adminWallet">
+৳0
+</div>
+
+<input
+id="walletAmount"
+type="number"
+placeholder="Balance amount"
+>
+
+<div style="display:flex;gap:7px;margin-top:8px">
+
+<button class="admin-btn green" onclick="setWallet()">
+Set Balance
+</button>
+
+<button class="admin-btn gold" onclick="addWallet()">
++ Add
+</button>
+
+</div>
+
+</div>
+
+<div class="tool-box">
+
+<h4>📊 Quick Information</h4>
+
+<div style="color:#cbd2ed;line-height:1.8">
+
+Pending = যেসব Order এখনো যাচাই হয়নি<br>
+
+Completed = সফলভাবে Recharge করা Order<br>
+
+Sales = Completed Order-এর মোট মূল্য
+
+</div>
+
+</div>
+
+</div>
+
+<div class="admin-actions">
+
+<button class="admin-btn" onclick="loadOrders()">
+🔄 Refresh
+</button>
+
+<button class="admin-btn green" onclick="exportOrders()">
+📥 Export Orders
+</button>
+
+<button class="admin-btn red" onclick="clearAllOrders()">
+🗑️ Delete All
+</button>
+
+<button class="admin-btn" onclick="closeAdmin()">
+🌐 Website
+</button>
+
+<button class="admin-btn red" onclick="adminLogout()">
+🔒 Logout
+</button>
+
+</div>
+
+<div class="search">
+
+<input
+id="orderSearch"
+type="text"
+placeholder="🔎 Search Order ID / UID / Transaction ID / Package..."
+oninput="loadOrders()"
+>
+
+</div>
+
+<div id="ordersList"></div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* SETTINGS */
+
+const BKASH_NUMBER = "01410390889";
+const NAGAD_NUMBER = "01703306710";
+const ROCKET_NUMBER = "01703306710";
+
+const ADMIN_PASSWORD = "123456";
+
+let selectedProduct = "";
+let selectedPrice = 0;
+let selectedIcon = "";
+let selectedMethod = "Wallet";
+
+let lastOrderCount =
+Number(localStorage.getItem("naniLastOrderCount") || 0);
+
+
+/* PACKAGES */
+
+const packages = {
+
+diamond:[
+["25 Diamond",15,"💎"],
+["50 Diamond",30,"💎"],
+["115 Diamond",74,"💎"],
+["240 Diamond",153,"💎"],
+["355 Diamond",232,"💎"],
+["480 Diamond",311,"💎"],
+["610 Diamond",395,"💎"],
+["1015 Diamond",667,"💎"],
+["1240 Diamond",795,"💎"],
+["2530 Diamond",1576,"💎"],
+["5060 Diamond",3152,"💎"],
+["10120 Diamond",6315,"💎"],
+["17710 Diamond",11145,"💎"]
+],
+
+weekly:[
+["Weekly",138,"⚡"],
+["2X Weekly",296,"⚡"],
+["3X Weekly",454,"⚡"],
+["5X Weekly",770,"⚡"]
+],
+
+monthly:[
+["Monthly",770,"👑"],
+["2X Monthly",1560,"👑"],
+["1 Weekly + 1 Monthly",928,"👑"],
+["4 Weekly + 1 Monthly",1402,"👑"]
+],
+
+levelup:[
+["Full Level Up Pass",425,"🚀"],
+["Level Up Package - Level 6",25,"🚀"],
+["Level Up Package - Level 10",55,"🚀"],
+["Level Up Package - Level 15",55,"🚀"],
+["Level Up Package - Level 20",55,"🚀"],
+["Level Up Package - Level 25",55,"🚀"],
+["Level Up Package - Level 30",85,"🚀"]
+],
+
+mistry:[
+["17 Takar Mistry Box",17,"🎁"],
+["Mistry Gift Box",85,"🎁"],
+["5X Mistry Box",445,"🎁"],
+["10X Mistry Box",895,"🎁"],
+["Big Mistry Box",945,"🎁"]
+]
+
+};
+
+
+/* RENDER PRODUCTS */
+
+function renderPackages(){
+
+Object.keys(packages).forEach(function(cat){
+
+const grid = document.getElementById(cat + "Grid");
+
+grid.innerHTML = packages[cat].map(function(x,index){
+
+return `
+<div class="package">
+
+<div class="character">
+${x[2]}
+</div>
+
+<div class="package-name">
+${x[0]}
+</div>
+
+<div class="price">
+৳${x[1]}
+</div>
+
+<button
+class="select-btn"
+onclick="selectPackageByIndex('${cat}',${index})"
+>
+Select Recharge
+</button>
+
+</div>
+`;
+
+}).join("");
+
+});
+
+}
+
+renderPackages();
+
+
+/* SELECT PACKAGE */
+
+function selectPackageByIndex(category,index){
+
+const product = packages[category][index];
+
+selectPackage(
+product[0],
+product[1],
+product[2]
+);
+
+}
+
+
+/* OPEN PAYMENT */
+
+function selectPackage(product,price,icon){
+
+selectedProduct = product;
+selectedPrice = Number(price);
+selectedIcon = icon;
+selectedMethod = "Wallet";
+
+document.getElementById("homePage").style.display = "none";
+document.getElementById("adminPage").style.display = "none";
+document.getElementById("paymentPage").style.display = "block";
+
+document.getElementById("selectedProduct").innerText =
+selectedProduct;
+
+document.getElementById("selectedPrice").innerText =
+"৳" + selectedPrice;
+
+document.getElementById("selectedIcon").innerText =
+selectedIcon;
+
+document.getElementById("successBox").style.display =
+"none";
+
+document.getElementById("uid").value = "";
+document.getElementById("trx").value = "";
+
+document.querySelectorAll(".method").forEach(function(btn){
+btn.classList.remove("active");
+});
+
+const walletButton =
+document.querySelector(".method");
+
+if(walletButton){
+selectMethod("Wallet",walletButton);
+}
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* CATEGORY */
+
+function showCategory(category,button){
+
+document.querySelectorAll(".section").forEach(function(s){
+s.classList.remove("active");
+});
+
+document.getElementById(category).classList.add("active");
+
+document.querySelectorAll(".menu button").forEach(function(b){
+b.classList.remove("active");
+});
+
+button.classList.add("active");
+
+}
+
+
+/* PAYMENT METHOD */
+
+function selectMethod(method,button){
+
+selectedMethod = method;
+
+document.querySelectorAll(".method").forEach(function(b){
+b.classList.remove("active");
+});
+
+button.classList.add("active");
+
+const paymentNumber =
+document.getElementById("paymentNumber");
+
+const instruction =
+document.getElementById("instruction");
+
+const trxArea =
+document.getElementById("trxArea");
+
+if(method === "Wallet"){
+
+paymentNumber.style.display = "none";
+
+trxArea.style.display = "none";
+
+instruction.innerText =
+"Wallet selected. Your wallet balance will be used for this order.";
+
+}else{
+
+paymentNumber.style.display = "block";
+
+trxArea.style.display = "block";
+
+let number;
+
+if(method === "bKash"){
+number = BKASH_NUMBER;
+}
+
+else if(method === "Nagad"){
+number = NAGAD_NUMBER;
+}
+
+else{
+number = ROCKET_NUMBER;
+}
+
+document.getElementById("numberText").innerText =
+number;
+
+instruction.innerText =
+"Send ৳" + selectedPrice +
+" to the " + method +
+" number above, then enter the Transaction ID below.";
+
+}
+
+}
+
+
+/* COPY PAYMENT NUMBER */
+
+function copyNumber(){
+
+const number =
+document.getElementById("numberText").innerText;
+
+navigator.clipboard.writeText(number)
+.then(function(){
+alert("Payment number copied!");
+})
+.catch(function(){
+alert("Copy failed. Please copy manually.");
+});
+
+}
+
+
+/* COPY TEXT */
+
+function copyText(text){
+
+navigator.clipboard.writeText(text)
+.then(function(){
+alert("Copied!");
+})
+.catch(function(){
+alert("Copy failed.");
+});
+
+}
+
+
+/* VERIFY PAYMENT */
+
+function verifyPayment(){
+
+const uid =
+document.getElementById("uid").value.trim();
+
+const trx =
+document.getElementById("trx").value.trim();
+
+if(!uid){
+
+alert("Please enter your Free Fire UID.");
+
+return;
+
+}
+
+if(selectedMethod !== "Wallet" && !trx){
+
+alert("Please enter your Transaction ID.");
+
+return;
+
+}
+
+
+/* WALLET PAYMENT */
+
+if(selectedMethod === "Wallet"){
+
+let balance =
+Number(localStorage.getItem("naniWallet") || 0);
+
+if(balance < selectedPrice){
+
+alert(
+"Insufficient wallet balance.\n\n" +
+"Current Balance: ৳" + balance +
+"\nRequired: ৳" + selectedPrice
+);
+
+return;
+
+}
+
+balance -= selectedPrice;
+
+localStorage.setItem(
+"naniWallet",
+balance
+);
+
+}
+
+
+/* CREATE ORDER */
+
+const orderId =
+"NB" + Date.now().toString().slice(-8);
+
+const order = {
+
+id:orderId,
+
+package:selectedProduct,
+
+price:selectedPrice,
+
+uid:uid,
+
+method:selectedMethod,
+
+trx:trx,
+
+status:"Pending",
+
+date:new Date().toLocaleString(),
+
+cancelReason:""
+
+};
+
+let orders =
+JSON.parse(
+localStorage.getItem("naniOrders") || "[]"
+);
+
+orders.push(order);
+
+localStorage.setItem(
+"naniOrders",
+JSON.stringify(orders)
+);
+
+
+/* SUCCESS */
+
+document.getElementById("orderId").innerText =
+orderId;
+
+document.getElementById("successBox").style.display =
+"block";
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+}
+
+
+/* HOME */
+
+function goHome(){
+
+document.getElementById("paymentPage").style.display =
+"none";
+
+document.getElementById("adminPage").style.display =
+"none";
+
+document.getElementById("homePage").style.display =
+"block";
+
+document.getElementById("uid").value = "";
+document.getElementById("trx").value = "";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* ADMIN LOGIN */
+
+function openAdminLogin(){
+
+const password =
+prompt("🔐 Enter Admin Password:");
+
+if(password === null){
+return;
+}
+
+if(password === ADMIN_PASSWORD){
+
+document.getElementById("homePage").style.display =
+"none";
+
+document.getElementById("paymentPage").style.display =
+"none";
+
+document.getElementById("adminPage").style.display =
+"block";
+
+document.getElementById("newOrderNotice").style.display =
+"none";
+
+loadOrders();
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+else{
+
+alert("❌ Wrong Admin Password!");
+
+}
+
+}
+
+
+/* ADMIN LOGOUT */
+
+function adminLogout(){
+
+document.getElementById("adminPage").style.display =
+"none";
+
+document.getElementById("homePage").style.display =
+"block";
+
+alert("🔒 Admin Logout Successful");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* CLOSE ADMIN */
+
+function closeAdmin(){
+
+document.getElementById("adminPage").style.display =
+"none";
+
+document.getElementById("paymentPage").style.display =
+"none";
+
+document.getElementById("homePage").style.display =
+"block";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* WALLET DISPLAY */
+
+function updateWalletDisplay(){
+
+const balance =
+Number(localStorage.getItem("naniWallet") || 0);
+
+document.getElementById("adminWallet").innerText =
+"৳" + balance;
+
+}
+
+
+/* SET WALLET */
+
+function setWallet(){
+
+const amount =
+Number(document.getElementById("walletAmount").value);
+
+if(isNaN(amount) || amount < 0){
+
+alert("সঠিক Balance লিখুন।");
+
+return;
+
+}
+
+localStorage.setItem(
+"naniWallet",
+amount
+);
+
+document.getElementById("walletAmount").value = "";
+
+updateWalletDisplay();
+
+alert(
+"✅ Wallet Balance Updated: ৳" +
+amount
+);
+
+}
+
+
+/* ADD WALLET */
+
+function addWallet(){
+
+const amount =
+Number(document.getElementById("walletAmount").value);
+
+if(isNaN(amount) || amount <= 0){
+
+alert(
+"Add করার জন্য সঠিক Amount লিখুন।"
+);
+
+return;
+
+}
+
+const balance =
+Number(localStorage.getItem("naniWallet") || 0)
++
+amount;
+
+localStorage.setItem(
+"naniWallet",
+balance
+);
+
+document.getElementById("walletAmount").value = "";
+
+updateWalletDisplay();
+
+alert(
+"✅ Wallet Balance Added: ৳" +
+amount
+);
+
+}
+
+
+/* LOAD ORDERS */
+
+function loadOrders(){
+
+let orders =
+JSON.parse(
+localStorage.getItem("naniOrders") || "[]"
+);
+
+const search =
+(
+document.getElementById("orderSearch")?.value ||
+""
+).toLowerCase().trim();
+
+const filtered =
+orders.filter(function(order){
+
+return (
+
+String(order.id)
+.toLowerCase()
+.includes(search)
+
+||
+
+String(order.uid)
+.toLowerCase()
+.includes(search)
+
+||
+
+String(order.trx || "")
+.toLowerCase()
+.includes(search)
+
+||
+
+String(order.package)
+.toLowerCase()
+.includes(search)
+
+);
+
+});
+
+
+const pending =
+orders.filter(function(x){
+return x.status === "Pending";
+}).length;
+
+
+const completed =
+orders.filter(function(x){
+return x.status === "Completed";
+}).length;
+
+
+const sales =
+orders
+.filter(function(x){
+return x.status === "Completed";
+})
+.reduce(function(sum,x){
+return sum + Number(x.price);
+},0);
+
+
+document.getElementById("totalOrders").innerText =
+orders.length;
+
+document.getElementById("pendingOrders").innerText =
+pending;
+
+document.getElementById("completedOrders").innerText =
+completed;
+
+document.getElementById("totalSales").innerText =
+"৳" + sales;
+
+updateWalletDisplay();
+
+
+/* NEW ORDER */
+
+if(orders.length > lastOrderCount){
+
+if(lastOrderCount > 0){
+
+document.getElementById("newOrderNotice").style.display =
+"block";
+
+}
+
+lastOrderCount = orders.length;
+
+localStorage.setItem(
+"naniLastOrderCount",
+lastOrderCount
+);
+
+}
+
+
+const list =
+document.getElementById("ordersList");
+
+
+if(filtered.length === 0){
+
+list.innerHTML =
+'<div class="empty">📭 No orders found.</div>';
+
+return;
+
+}
+
+
+list.innerHTML =
+filtered.slice().reverse().map(function(order){
+
+let statusClass;
+
+if(order.status === "Completed"){
+statusClass = "completed";
+}
+
+else if(order.status === "Cancelled"){
+statusClass = "cancelled";
+}
+
+else{
+statusClass = "pending";
+}
+
+
+return `
+
+<div class="order-card">
+
+<div class="order-head">
+
+<strong>
+🧾 ${escapeHTML(order.id)}
+</strong>
+
+<span class="status ${statusClass}">
+${escapeHTML(order.status)}
+</span>
+
+</div>
+
+
+<div class="order-row">
+
+📦 Package:
+<strong>${escapeHTML(order.package)}</strong>
+<br>
+
+💰 Price:
+<strong>৳${Number(order.price)}</strong>
+<br>
+
+🎮 UID:
+<strong>${escapeHTML(order.uid)}</strong>
+<br>
+
+💳 Method:
+<strong>${escapeHTML(order.method)}</strong>
+<br>
+
+🧾 Transaction ID:
+<strong>${escapeHTML(order.trx || "Wallet")}</strong>
+<br>
+
+🕐 Date:
+${escapeHTML(order.date)}
+
+${
+order.cancelReason
+?
+`
+<div class="cancel-reason">
+❌ Cancel Reason:
+${escapeHTML(order.cancelReason)}
+</div>
+`
+:
+""
+}
+
+</div>
+
+
+<div class="order-actions">
+
+<button
+class="copy"
+onclick="copyText('${safeJS(order.uid)}')"
+>
+📋 UID
+</button>
+
+<button
+class="copy"
+onclick="copyText('${safeJS(order.trx || "Wallet")}')"
+>
+📋 TRX
+</button>
+
+<button
+class="complete"
+onclick="changeOrderStatus('${safeJS(order.id)}','Completed')"
+>
+✅ Complete
+</button>
+
+<button
+class="cancel"
+onclick="changeOrderStatus('${safeJS(order.id)}','Cancelled')"
+>
+❌ Cancel
+</button>
+
+<button
+class="delete"
+onclick="deleteOrder('${safeJS(order.id)}')"
+>
+🗑️ Delete
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+
+/* SAFE HTML */
+
+function escapeHTML(value){
+
+return String(value ?? "")
+.replace(/[&<>"']/g,function(m){
+
+return {
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[m];
+
+});
+
+}
+
+
+/* SAFE JS */
+
+function safeJS(value){
+
+return String(value ?? "")
+.replace(/\\/g,"\\\\")
+.replace(/'/g,"\\'");
+
+}
+
+
+/* CHANGE STATUS */
+
+function changeOrderStatus(id,status){
+
+let orders =
+JSON.parse(
+localStorage.getItem("naniOrders") || "[]"
+);
+
+let order =
+orders.find(function(x){
+return x.id === id;
+});
+
+if(!order){
+return;
+}
+
+
+if(status === "Cancelled"){
+
+const reason =
+prompt("❌ Cancellation reason লিখুন:");
+
+if(reason === null){
+return;
+}
+
+order.cancelReason =
+reason || "No reason provided";
+
+}
+
+
+order.status = status;
+
+localStorage.setItem(
+"naniOrders",
+JSON.stringify(orders)
+);
+
+loadOrders();
+
+}
+
+
+/* DELETE ORDER */
+
+function deleteOrder(id){
+
+if(!confirm("এই Order টি Delete করবেন?")){
+return;
+}
+
+let orders =
+JSON.parse(
+localStorage.getItem("naniOrders") || "[]"
+);
+
+orders =
+orders.filter(function(x){
+return x.id !== id;
+});
+
+localStorage.setItem(
+"naniOrders",
+JSON.stringify(orders)
+);
+
+loadOrders();
+
+}
+
+
+/* DELETE ALL */
+
+function clearAllOrders(){
+
+let orders =
+JSON.parse(
+localStorage.getItem("naniOrders") || "[]"
+);
+
+if(orders.length === 0){
+
+alert("কোনো Order নেই।");
+
+return;
+
+}
+
+
+if(!confirm(
+"⚠️ সব Order Delete করতে চান?\n\n" +
+"এই কাজ Undo করা যাবে না!"
+)){
+
+return;
+
+}
+
+
+localStorage.removeItem("naniOrders");
+
+localStorage.setItem(
+"naniLastOrderCount",
+"0"
+);
+
+lastOrderCount = 0;
+
+loadOrders();
+
+}
+
+
+/* EXPORT */
+
+function exportOrders(){
+
+let orders =
+JSON.parse(
+localStorage.getItem("naniOrders") || "[]"
+);
+
+if(orders.length === 0){
+
+alert(
+"Export করার মতো কোনো Order নেই।"
+);
+
+return;
+
+}
+
+
+const blob =
+new Blob(
+[
+JSON.stringify(orders,null,2)
+],
+{
+type:"application/json"
+}
+);
+
+
+const url =
+URL.createObjectURL(blob);
+
+const a =
+document.createElement("a");
+
+a.href = url;
+
+a.download =
+"NaniBazar-Orders.json";
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+URL.revokeObjectURL(url);
+
+}
+
+
+/* AUTO CHECK */
+
+setInterval(function(){
+
+const orders =
+JSON.parse(
+localStorage.getItem("naniOrders") || "[]"
+);
+
+if(
+document.getElementById("adminPage").style.display === "block"
+&&
+orders.length > lastOrderCount
+){
+
+document.getElementById("newOrderNotice").style.display =
+"block";
+
+loadOrders();
+
+}
+
+},3000);
+
+</script>
+
+</body>
+</html>
